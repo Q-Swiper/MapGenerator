@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Q-Swiper Level Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
+    <link href="style.css" type="text/css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <main>
+        <h1>Q-Swiper Level Creator</h1>
+        <section id="selection">
+            <div class="selectable selectable-selected">
+                <div class="empty-background empty" data-type="empty" data-file-letter="e">
+
+                </div>
+            </div>
+            <div class="selectable">
+                <div class="wall-background wall" data-type="wall" data-file-letter="w">
+
+                </div>
+            </div>
+            <div class="selectable">
+                <div class="empty-background coin" data-type="coin" data-file-letter="c">
+                    <img class="selectable-image" src="images/c.png">            
+                </div>
+            </div>
+            <div class="selectable">
+                <div class="empty-background player" data-type="player" data-file-letter="p">
+                    <img class="selectable-image" src="images/p.png">            
+                </div>
+            </div>
+            <div class="selectable">
+                <div class="empty-background clone" data-type="clone" data-file-letter="k">
+                    <img class="selectable-image" src="images/k.png">            
+                </div>
+            </div>
+            <div class="selectable">
+                <div class="empty-background new1" data-type="new1" data-file-letter="1">
+                    <p class="selectable-text">1</p>
+                </div>
+            </div>
+            <div class="selectable">
+                <div class="empty-background new2" data-type="new2" data-file-letter="2">
+                    <p class="selectable-text">2</p>
+                </div>
+            </div>        
+            <div class="selectable">
+                <div class="empty-background new3" data-type="new3" data-file-letter="3">
+                    <p class="selectable-text">3</p>
+                </div>
+            </div>        
+            <div class="selectable">
+                <div class="wall-background new4" data-type="new4" data-file-letter="4">
+                    <p class="selectable-text">4</p>
+                </div>
+            </div>        
+            <div class="selectable">
+                <div class="wall-background new5" data-type="new5" data-file-letter="5">
+                    <p class="selectable-text">5</p>
+                </div>
+            </div>        
+            <div class="selectable">
+                <div class="wall-background new6" data-type="new6" data-file-letter="6">
+                    <p class="selectable-text">6</p>
+                </div>
+            </div>    
+        </section>
+        <section id="map">
+            <!-- app.js content -->  
+        </section>
+        <section id="save-level-section">
+            <br>
+            <br>
+            <form>
+                <label for="file-name">Dateiname: </label>
+                <input name="file-name" id="file-name" type="text" placeholder="Level Name">          
+                <br>
+                <div class="flex-row">
+                    <button id="import-btn" class="red-button" type="button">Importieren</button>
+                    <button id="export-btn" class="red-button" type="button">Exportieren</button>
+                </div>
+            </form>
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="fileSaver.js"></script>
+        <script src="app.js"></script>
+    </main>
+    <div id="upload-menu-background" class="hide">
+        <div id="upload-menu">
+            <input id="file-input" type="file"> 
+        </div>
+    </div>
+</body>
+</html>
