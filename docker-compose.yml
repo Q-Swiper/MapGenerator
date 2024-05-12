@@ -1,0 +1,10 @@
+services:
+  q-swiper-website:
+    image: ghcr.io/q-swiper/map-generator:latest
+    container_name: q-swiper_web
+    networks:
+      - webnet
+
+networks:
+  webnet:
+    external: true
