@@ -36,12 +36,13 @@ jobs:
     needs: build-docker-image
     runs-on: ubuntu-latest
     steps:
-      - name: SSH, docker-compose pull, docker-compose up
+      - name: SSH, docker login, docker-compose pull, docker-compose up
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login docker.pkg.github.com -u ${{ github.actor }} --password-stdin
             cd /opt/docker-projects/q-swiper
             docker-compose pull && docker-compose up -d --force-recreate
