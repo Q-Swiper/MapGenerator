@@ -1,9 +1,12 @@
-name: Build website and deploy with Docker
+name: Build website as docker image
 
 on:
   push:
     branches: ["main"]
   workflow_dispatch:
+
+env:
+  IMAGE_VERSION: ${{ github.sha }}
 
 jobs:
   build-docker-image:
@@ -30,23 +33,20 @@ jobs:
           file: ./dockerfile
           push: true
           tags: |
-            ghcr.io/q-swiper/map-generator:${{ github.sha }}
+            ghcr.io/q-swiper/map-generator:${{ env.IMAGE_VERSION }}
             ghcr.io/q-swiper/map-generator:latest
           build-args: |
             VERSION=alpine
           platforms: linux/amd64,linux/arm64,linux/arm/v7,linux/arm/v8
-
-  deploy-docker-image:
+  
+  trigger-deployment:
     needs: build-docker-image
     runs-on: ubuntu-latest
     steps:
-      - name: SSH, docker login, docker-compose pull, docker-compose up
-        uses: appleboy/ssh-action@v1.0.3
+      - name: Trigger image update in Calfur/calfur-dev
+        uses: peter-evans/repository-dispatch@v3
         with:
-          host: ${{ secrets.SERVER_IP }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-            cd /opt/docker-projects/q-swiper
-            docker-compose pull && docker-compose up -d --force-recreate
+          token: ${{ secrets.GH_PAT_ACTIONS_TRIGGER }}
+          repository: Calfur/calfur-dev
+          event-type: new-q-swiper-image
+          client-payload: '{"image_version": "${{ env.IMAGE_VERSION }}"}'
